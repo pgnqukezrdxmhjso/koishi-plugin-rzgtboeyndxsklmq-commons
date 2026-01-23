@@ -1,21 +1,34 @@
 {
   "name": "koishi-plugin-rzgtboeyndxsklmq-commons",
   "description": "",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "cd ../../ && yarn build rzgtboeyndxsklmq-commons",
+    "pub": "cd ../../ && yarn pub rzgtboeyndxsklmq-commons",
+    "fastPub": "cd ../../ && yarn bump -3 rzgtboeyndxsklmq-commons && yarn build rzgtboeyndxsklmq-commons && yarn pub rzgtboeyndxsklmq-commons"
+  },
   "files": [
     "lib",
     "dist"
   ],
-  "license": "MIT",
-  "scripts": {},
-  "keywords": [
-    "chatbot",
-    "koishi",
-    "plugin"
+  "contributors": [
+    "pgnqukezrdxmhjso"
   ],
-  "devDependencies": {},
+  "homepage": "https://github.com/pgnqukezrdxmhjso/koishi-plugin-rzgtboeyndxsklmq-commons",
+  "bugs": {
+    "url": "https://github.com/pgnqukezrdxmhjso/koishi-plugin-rzgtboeyndxsklmq-commons/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgnqukezrdxmhjso/koishi-plugin-rzgtboeyndxsklmq-commons.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "koishi",
+    "commons"
+  ],
   "peerDependencies": {
     "koishi": "^4.18.10"
   }
