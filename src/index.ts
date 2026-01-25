@@ -1,7 +1,8 @@
 import { Context, Schema } from "koishi";
 
 export * from "./utils/BeanHelper";
-export * from "./utils/File";
+export * from "./utils/Strings";
+export * from "./utils/Files";
 export * from "./utils/Test";
 
 export const name = "rzgtboeyndxsklmq-commons";
