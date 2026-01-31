@@ -115,7 +115,6 @@ onUnmounted(() => {
   min-width: 50px;
   max-height: 60vh;
   background: var(--k-card-bg);
-  user-select: none;
   transition: none;
   overflow: initial;
 
@@ -126,6 +125,7 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    user-select: none;
   }
 
   .move {
