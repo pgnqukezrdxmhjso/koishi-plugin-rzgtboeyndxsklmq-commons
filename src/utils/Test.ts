@@ -59,6 +59,11 @@ export namespace Test {
   }
 
   export async function test2(name: string, count: number, run: () => any) {
+    if (count < 2) {
+      await test(name, count, true, run);
+      return;
+    }
+    await test(name, 1, true, run);
     await test(name, count, true, run);
     await test(name, count, false, run);
   }
