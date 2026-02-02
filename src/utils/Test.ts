@@ -39,11 +39,10 @@ export namespace Test {
       return;
     }
     let total = 0;
-    let average = 0;
     let highest = 0;
     let lowest = null;
 
-    for (let i = 1; i < timeConsumings.length; i++) {
+    for (let i = 0; i < timeConsumings.length; i++) {
       const t = timeConsumings[i];
       if (lowest == null || t < lowest) {
         lowest = t;
@@ -51,10 +50,11 @@ export namespace Test {
       highest = Math.max(t, highest);
       total += t;
     }
-    average = total / (count - 1);
+
+    let average = total / count;
 
     console.log(
-      `\nrun: ${name};\tserial: ${serial};\tcount: ${count};\ttestTime: ${testTime};\ttotal: ${total};\tfirst: ${timeConsumings[0]};\taverage: ${average};\thighest: ${highest};\tlowest: ${lowest};`,
+      `\nrun: ${name};\tserial: ${serial};\tcount: ${count};\ttestTime: ${testTime};\ttotal: ${total};\taverage: ${average};\thighest: ${highest};\tlowest: ${lowest};`,
     );
   }
 
