@@ -1,12 +1,13 @@
 export namespace Test {
-  export async function test(
+  export async function run(
     name: string,
     count: number,
     serial: boolean,
-    run: () => any,
+    fn: () => any,
   ) {
+    let macroTask = 0;
     const timeout = setInterval(() => {
-      process.stdout.write(".");
+      macroTask++;
     }, 100);
     let timeConsumings: number[] = [];
     timeConsumings.length = count;
@@ -14,7 +15,7 @@ export namespace Test {
     if (serial) {
       for (let i = 0; i < count; i++) {
         const time = Date.now();
-        await run();
+        await fn();
         timeConsumings[i] = Date.now() - time;
       }
     } else {
@@ -24,7 +25,7 @@ export namespace Test {
           return new Promise((resolve) => {
             setImmediate(async () => {
               const time = Date.now();
-              await run();
+              await fn();
               timeConsumings[i] = Date.now() - time;
               resolve(0);
             });
@@ -35,8 +36,12 @@ export namespace Test {
     const testTime = Date.now() - testStartTime;
     clearInterval(timeout);
     if (count < 2) {
-      console.log(`\nrun: ${name};\ttotal: ${timeConsumings[0]};`);
-      return;
+      return {
+        name,
+        count,
+        macroTask,
+        testTime,
+      };
     }
     let total = 0;
     let highest = 0;
@@ -51,20 +56,49 @@ export namespace Test {
       total += t;
     }
 
-    let average = total / count;
+    const average = total / count;
 
-    console.log(
-      `\nrun: ${name};\tserial: ${serial};\tcount: ${count};\ttestTime: ${testTime};\ttotal: ${total};\taverage: ${average};\thighest: ${highest};\tlowest: ${lowest};`,
-    );
+    return {
+      name,
+      serial,
+      count,
+      macroTask,
+      testTime,
+      total,
+      average,
+      highest,
+      lowest,
+    };
   }
 
-  export async function test2(name: string, count: number, run: () => any) {
+  export async function test(
+    count: number,
+    tasks: { name: string; fn: () => any }[],
+  ) {
+    const resList = [];
     if (count < 2) {
-      await test(name, count, true, run);
-      return;
+      for (const task of tasks) {
+        resList.push(await run(task.name, count, true, task.fn));
+      }
+      console.table(resList, ["name", "macroTask", "testTime"]);
+    } else {
+      for (const task of tasks) {
+        resList.push(await run(task.name, 1, true, task.fn));
+        resList.push(await run(task.name, count, true, task.fn));
+        resList.push(await run(task.name, count, false, task.fn));
+      }
+      console.table(resList, [
+        "name",
+        "serial",
+        "count",
+        "macroTask",
+        "testTime",
+        "total",
+        "average",
+        "highest",
+        "lowest",
+      ]);
     }
-    await test(name, 1, true, run);
-    await test(name, count, true, run);
-    await test(name, count, false, run);
+    return resList;
   }
 }
