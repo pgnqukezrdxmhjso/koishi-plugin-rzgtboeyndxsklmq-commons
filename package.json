@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-rzgtboeyndxsklmq-commons",
   "description": "",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
