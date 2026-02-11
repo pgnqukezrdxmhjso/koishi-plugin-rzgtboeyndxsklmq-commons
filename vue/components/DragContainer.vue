@@ -14,7 +14,9 @@
       </el-icon>
       <slot name="title" />
     </template>
-    <slot />
+    <div :class="$style.content">
+      <slot />
+    </div>
   </el-card>
 </template>
 <script setup lang="ts">
@@ -117,6 +119,8 @@ onUnmounted(() => {
   background: var(--k-card-bg);
   transition: none;
   overflow: initial;
+  display: flex;
+  flex-direction: column;
 
   --el-card-padding: 5px;
 
@@ -126,6 +130,15 @@ onUnmounted(() => {
     align-items: center;
     flex-wrap: wrap;
     user-select: none;
+  }
+  :global(.el-card__body) {
+    overflow: hidden;
+    display: flex;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
   }
 
   .move {

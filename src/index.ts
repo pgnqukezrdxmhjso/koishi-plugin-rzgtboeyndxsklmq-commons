@@ -3,6 +3,7 @@ import { Context, Schema } from "koishi";
 export * from "./utils/BeanHelper";
 export * from "./utils/Locks";
 export * from "./utils/Strings";
+export * from "./utils/Objects";
 export * from "./utils/Files";
 export * from "./utils/Test";
 
