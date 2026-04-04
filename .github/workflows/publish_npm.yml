@@ -51,7 +51,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Check visibility
-        if: github.event.repository.private == true
-        run: yarn config set npmPublishProvenance false
+        if: github.event.repository.private == false
+        run: yarn config set npmPublishProvenance true
       - name: Publish
         run: yarn pub --debug
