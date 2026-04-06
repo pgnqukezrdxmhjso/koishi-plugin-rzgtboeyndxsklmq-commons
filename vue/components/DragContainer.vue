@@ -115,12 +115,9 @@ onUnmounted(() => {
   right: 15px;
   z-index: 999;
   min-width: 50px;
-  max-height: 60vh;
   background: var(--k-card-bg);
   transition: none;
   overflow: initial;
-  display: flex;
-  flex-direction: column;
 
   --el-card-padding: 5px;
 
@@ -132,8 +129,8 @@ onUnmounted(() => {
     user-select: none;
   }
   :global(.el-card__body) {
-    overflow: hidden;
     display: flex;
+    max-height: 60vh;
   }
 
   .content {
