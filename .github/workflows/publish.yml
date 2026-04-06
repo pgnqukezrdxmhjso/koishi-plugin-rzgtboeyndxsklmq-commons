@@ -11,4 +11,4 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    uses: pgnqukezrdxmhjso/koishi-plugin-rzgtboeyndxsklmq-commons/.github/workflows/publish_npm.yml@06bfef5f1aff63aeacc5fc4e1ce09efb29fe4806
+    uses: pgnqukezrdxmhjso/koishi-plugin-rzgtboeyndxsklmq-commons/.github/workflows/publish_npm.yml@3dcb1faa5b79a92083d788211c1a6c799f883e9a

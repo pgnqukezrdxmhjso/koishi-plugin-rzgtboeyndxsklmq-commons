@@ -1,17 +1,18 @@
 {
   "name": "koishi-plugin-rzgtboeyndxsklmq-commons",
   "description": "",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
+    "bump": "cd ../../ && yarn bump -3 rzgtboeyndxsklmq-commons",
     "build": "cd ../../ && yarn build rzgtboeyndxsklmq-commons",
-    "pub": "cd ../../ && yarn pub rzgtboeyndxsklmq-commons",
-    "fastPub": "cd ../../ && yarn bump -2 rzgtboeyndxsklmq-commons && yarn build rzgtboeyndxsklmq-commons && yarn pub rzgtboeyndxsklmq-commons"
+    "up": "npx npm-check -u --no-color"
   },
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "vue"
   ],
   "contributors": [
     "pgnqukezrdxmhjso"
