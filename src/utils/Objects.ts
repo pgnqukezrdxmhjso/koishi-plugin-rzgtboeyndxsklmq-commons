@@ -18,6 +18,10 @@ export namespace Objects {
   export function isNotEmpty<T>(obj: T): obj is Exclude<T, Empty> {
     return !Objects.isEmpty(obj);
   }
+
+  /**
+   * @deprecated deepForEach
+   */
   export async function thoroughForEach(
     obj: any,
     fn: (
@@ -46,6 +50,39 @@ export namespace Objects {
       }
     }
   }
+  export async function deepForEach(
+    obj: any,
+    fn: (
+      value: any,
+      key: string,
+      obj: any,
+      parentPath: string[],
+      root: any,
+    ) => Promise<void> | void,
+    {
+      onObject = true,
+      onValue = true,
+      parentPath = [] as string[],
+      root = obj,
+    } = {},
+  ) {
+    for (const [key, value] of Object.entries(obj)) {
+      if (typeof value === "object" && value !== null) {
+        if (onObject) {
+          await fn(value, key, obj, parentPath, root);
+        }
+        await Objects.deepForEach(value, fn, {
+          onObject,
+          onValue,
+          parentPath: [...parentPath, key],
+          root,
+        });
+      } else if (onValue) {
+        await fn(value, key, obj, parentPath, root);
+      }
+    }
+  }
+
   export async function clone<T>(
     sourceObj: T,
     filter?: (
