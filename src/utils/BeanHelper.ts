@@ -1,4 +1,5 @@
 import type { Awaitable, Context } from "koishi";
+import { Objects } from "./Objects";
 
 type Constructor<T = any> = new (...args: any[]) => T;
 
@@ -12,6 +13,9 @@ export class BeanHelper<C extends object> {
     Reflect.ownKeys(Reflect).forEach((key) => {
       handlerMap[key] = (target: any, ...args: any[]) => {
         const obj = getObj();
+        if (Objects.isNull(obj)) {
+          return obj;
+        }
         if (needInit) {
           needInit = false;
           Reflect.ownKeys(obj).forEach((k) => (target[k] = obj[k]));
