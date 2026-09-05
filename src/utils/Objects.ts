@@ -58,7 +58,7 @@ export namespace Objects {
       obj: any,
       parentPath: string[],
       root: any,
-    ) => Promise<void> | void,
+    ) => Promise<void | false> | void | false,
     {
       onObject = true,
       onValue = true,
@@ -69,16 +69,23 @@ export namespace Objects {
     for (const [key, value] of Object.entries(obj)) {
       if (typeof value === "object" && value !== null) {
         if (onObject) {
-          await fn(value, key, obj, parentPath, root);
+          if (await fn(value, key, obj, parentPath, root) === false) {
+            return false
+          }
         }
-        await Objects.deepForEach(value, fn, {
+        if (await deepForEach(value, fn, {
           onObject,
           onValue,
           parentPath: [...parentPath, key],
           root,
-        });
-      } else if (onValue) {
-        await fn(value, key, obj, parentPath, root);
+        }) === false) {
+          return false
+        }
+      }
+      else if (onValue) {
+        if (await fn(value, key, obj, parentPath, root) === false) {
+          return false
+        }
       }
     }
   }
